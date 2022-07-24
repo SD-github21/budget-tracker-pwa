@@ -19,7 +19,7 @@ request.onsuccess = function(event) {
 
     // Check if app is online, if yes run uploadBudget() function to send all local db data to API
     if (navigator.onLine) {
-        // uploadBudget();
+        uploadBudget();
     }
 };
 
@@ -37,7 +37,53 @@ function saveRecord(record) {
     // Access the object store for 'new_budget'
     const budgetObjectStore = transaction.objectStore('new_budget');
 
-    // Add budget record to your store with add method
+    // Add budget record to the object store with add method
 
     budgetObjectStore.add(record);
-}
+};
+
+function uploadBudget() {
+    // Open a transaction on db
+    const transaction = db.transaction(['new_budget'], 'readwrite');
+
+    // Access the object store for 'new_budget'
+    const budgetObjectStore = transaction.objectStore('new_budget');
+
+    // Get all records from store and set to a variable
+    const getAll = budgetObjectStore.getAll();
+
+    // Upon successful .getAll() execution, run this function
+    getAll.onsuccess = function() {
+        // If there was data in indexedDB's store, send it to the API server
+        if (getAll.result.length > 0) {
+            fetch('/api/transaction', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+             .then(response => response.json())
+             .then(serverResponse => {
+                if (serverResponse.message) {
+                    throw new Error(serverResponse);
+                }
+                // Open one more transaction
+                const transaction = db.transaction(['new_budget'], 'readwrite');
+                // Access the new_budget object store
+                const budgetObjectStore = transaction.objectStore('new_budget');
+                // Clear all items in the store
+                budgetObjectStore.clear();
+
+                alert('All saved budget data has been successfully submitted!');
+             })
+              .catch(err => {
+                console.log(err);
+              });
+        }
+    };
+};
+
+// Listen for app coming back online
+window.addEventListener('online', uploadBudget);
