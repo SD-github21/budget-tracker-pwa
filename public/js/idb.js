@@ -29,3 +29,15 @@ request.onerror = function(event) {
     console.log(event.target.errorCode);
 };
 
+// This function will be executed if we attempt to submit a new budget record and there's no internet connection
+function saveRecord(record) {
+    // Open a new transaction with the database with read and write permissions
+    const transaction = db.transaction(['new_budget'], 'readwrite');
+
+    // Access the object store for 'new_budget'
+    const budgetObjectStore = transaction.objectStore('new_budget');
+
+    // Add budget record to your store with add method
+
+    budgetObjectStore.add(record);
+}
