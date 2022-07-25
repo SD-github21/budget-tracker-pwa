@@ -48,23 +48,24 @@ self.addEventListener('activate', function (e) {
 
 // Intercept the fetch requests
 
-self.addEventListener('fetch', function (evt) {
-    if (evt.request.url.includes('/api/transaction')) {
-        evt.respondsWith(
+self.addEventListener('fetch', function (e) {
+    if (e.request.url.includes('/api/transaction')) {
+        e.respondWith(
             caches
               .open(DATA_CACHE_NAME)
               .then(cache => {
-                return fetch(evt.request)
+                return fetch(e.request)
                  .then(response => {
                     // If the response was good, clone it and store it in the cache.
                     if (response.status === 200) {
-                        cache.put(evt.request.url, response.clone());    
+                        alert("You have successfully added an expense or deposit!");
+                        cache.put(e.request.url, response.clone());    
                     }
                     return response;
                  })
                   .catch(err => {
                     // Network request failed to try to get it from the cache.
-                    return cache.match(evt.request);
+                    return cache.match(e.request);
                   });
               })
                .catch(err => console.log(err))
@@ -72,13 +73,13 @@ self.addEventListener('fetch', function (evt) {
         return;
     }
 
-    evt.respondWith(
-        fetch(evt.request).catch(function() {
-            return caches.match(evt.request).then
+    e.respondWith(
+        fetch(e.request).catch(function() {
+            return caches.match(e.request).then
             (function(response) {
                 if (response) {
                     return response;
-                } else if (evt.request.headers.get
+                } else if (e.request.headers.get
                     ('accept').includes('text/html')) {
                         // Return the cached home page for all requests for home pages
                         return caches.match('/');
