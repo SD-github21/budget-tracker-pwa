@@ -49,7 +49,7 @@ self.addEventListener('activate', function (e) {
 // Intercept the fetch requests
 
 self.addEventListener('fetch', function (e) {
-    if (e.request.url.includes('/api/transaction')) {
+    if (e.request.url.includes('/api/')) {
         e.respondWith(
             caches
               .open(DATA_CACHE_NAME)
