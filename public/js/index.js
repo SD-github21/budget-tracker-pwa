@@ -102,6 +102,9 @@ function sendTransaction(isAdding) {
   // if subtracting funds, convert amount to negative number
   if (!isAdding) {
     transaction.value *= -1;
+    alert("You have added an expense!")
+  } else {
+    alert("You have added a deposit!")
   }
 
   // add to beginning of current array of data
@@ -121,7 +124,7 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-  .then(response => {    
+  .then(response => { 
     return response.json();
   })
   .then(data => {

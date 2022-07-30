@@ -50,7 +50,6 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
     if (e.request.url.includes('/api/')) {
-        console.log("Console logging here");
         e.respondWith(
             caches
               .open(DATA_CACHE_NAME)
@@ -59,7 +58,6 @@ self.addEventListener('fetch', function (e) {
                  .then(response => {
                     // If the response was good, clone it and store it in the cache.
                     if (response.status === 200) {
-                        alert("You have successfully added an expense or deposit!");
                         cache.put(e.request.url, response.clone());    
                     }
                     return response;
@@ -75,7 +73,7 @@ self.addEventListener('fetch', function (e) {
     }
 
     e.respondWith(
-        fetch(e.request).catch(function() {
+        fetch(e.request).catch( function() {
             return caches.match(e.request).then
             (function(response) {
                 if (response) {
