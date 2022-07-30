@@ -79,10 +79,9 @@ self.addEventListener('fetch', function (e) {
             (function(response) {
                 if (response) {
                     return response;
-                } else if (e.request.headers.get
-                    ('accept').includes('text/html')) {
+                } else if (e.request.headers.get('accept').includes('text/html')) {
                         // Return the cached home page for all requests for home pages
-                        return caches.match('/');
+                        return caches.match('./index.html');
                     }
             });
         })
