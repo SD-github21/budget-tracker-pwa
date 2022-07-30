@@ -3,7 +3,7 @@
 # **Budget Tracker PWA**
 
 ## **Description**
-The purpose of this project was to convert an budget tracking website into a progressive web application (PWA). The Budget Tracker PWA allows for offline access and functionality, where users can submit expenses and deposits with or without an internet connection.
+The purpose of this project was to convert an existing budget tracking website into a progressive web application (PWA). The Budget Tracker PWA allows for users to submit expenses and deposits with or without an internet connection, thereby providing offline access and functionality. 
 
 ## **Table of Contents**
 [User Story](#user-story)<br>
