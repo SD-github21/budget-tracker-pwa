@@ -82,7 +82,7 @@ self.addEventListener('fetch', function (e) {
                     return response;
                 } else if (e.request.headers.get('accept').includes('text/html')) {
                         // Return the cached home page for all requests for home pages
-                        return caches.match('./index.html');
+                        return caches.match('/');
                     }
             });
         })
