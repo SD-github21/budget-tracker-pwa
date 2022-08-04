@@ -12,7 +12,7 @@ The purpose of this project was to convert an existing budget tracking website i
 [Contributing](#contributing)<br>
 [Tests](#tests)<br>
 [Built With](#built-with)<br>
-[Deliverable](#deliverable)<br>
+[Deliverables](#deliverables)<br>
 
 
 ### **User Story**
@@ -47,7 +47,7 @@ No tests were utilized in the creation of this application.
 * MongoDB Atlas
 * Heroku
 
-### **Deliverable**
+### **Deliverables**
 **Screenshot of Budget Tracker PWA:**
 ![alt text](public/images/screen-shot-app.png)
 
