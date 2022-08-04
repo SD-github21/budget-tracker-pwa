@@ -48,5 +48,8 @@ No tests were utilized in the creation of this application.
 * Heroku
 
 ### **Deliverable**
-Website URL:
+**Screenshot of Budget Tracker PWA:**
+![alt text](public/images/screen-shot-app.png)
+
+**Website URL for Budget Tracker PWA:**<br>
 https://evening-eyrie-52576.herokuapp.com/
